@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
+import img from '../../images/pluralsight-logo.png';
 
 const Header = () => {
   return (
@@ -14,7 +15,7 @@ const Header = () => {
             <span className="icon-bar"/>
           </button>
           <NavLink to="/" className="navbar-brand">
-            <img src="../../images/pluralsight-logo" alt="Pluralsight Logo"/>
+            <img src={img} alt="Pluralsight Logo"/>
           </NavLink>
         </div>
         <div className="collapse navbar-collapse" id="navbar-collapse-1">
