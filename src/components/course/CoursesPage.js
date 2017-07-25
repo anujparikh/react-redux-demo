@@ -1,9 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
-import * as courseAction from '../../actions/courseAction';
+import {bindActionCreators} from 'redux';
+import * as courseActions from '../../actions/courseAction';
 
 class CoursesPage extends Component {
 
+  /**
+   * constructor to initialize state and bind functions for ES6
+   * @param props
+   * @param context
+   */
   constructor(props, context) {
     super(props, context);
 
@@ -17,6 +23,10 @@ class CoursesPage extends Component {
     this.onClickSave = this.onClickSave.bind(this);
   }
 
+  /**
+   * Child functions called by render
+   * @param event
+   */
   onTitleChange(event) {
     const course = this.state.course;
     course.title = event.target.value;
@@ -26,13 +36,17 @@ class CoursesPage extends Component {
   }
 
   onClickSave() {
-    this.props.dispatch(courseAction.createCourse(this.state.course));
+    this.props.actions.createCourse(this.state.course);
   }
 
   courseRow(course, index) {
     return <div key={index}>{course.title}</div>;
   }
 
+  /**
+   * Normally call the child component with mark ups
+   * @returns {XML}
+   */
   render() {
     return (
     <div>
@@ -54,15 +68,31 @@ class CoursesPage extends Component {
   }
 }
 
-CoursesPage.propsType = {
-  dispatch: PropTypes.func.isRequired,
+/**
+ * For validation
+ * @type {{actions: (*), courses: (*)}}
+ */
+CoursesPage.propTypes = {
+  actions: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired
 };
 
+/**
+ * Redux related functions to connect component with state changes
+ * @param state
+ * @param ownProps
+ * @returns {{courses: *}}
+ */
 function mapStateToProps(state, ownProps) {
   return {
     courses: state.courses
   };
 }
 
-export default connect(mapStateToProps)(CoursesPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(courseActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
