@@ -3,26 +3,33 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseAction';
 import CourseList from './CourseList';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 class CoursesPage extends Component {
+
+  /**
+   * constructor to initialize state and bind functions for ES6
+   * @param props
+   * @param context
+   */
+  constructor(props, context) {
+    super(props, context);
+
+    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+  }
 
   /**
    * Child functions called by render
    * @param course
    * @param index
    */
-  static courseRow(course, index) {
+  courseRow(course, index) {
     return <div key={index}>{course.title}</div>;
   }
 
-  /**
-     * constructor to initialize state and bind functions for ES6
-     * @param props
-     * @param context
-     */
-    constructor(props, context) {
-      super(props, context);
-    }
+  redirectToAddCoursePage() {
+    Router.push('/course');
+  }
 
   /**
    * Normally call the child component with mark ups
@@ -31,10 +38,15 @@ class CoursesPage extends Component {
   render() {
     const {courses} = this.props;
     return (
-    <div>
-      <h1>Courses</h1>
-      <CourseList courses={courses}/>
-    </div>
+      <div>
+        <h1>Courses</h1>
+        <input type="submit"
+               value="Add Course"
+               className="btn btn-primary"
+               onClick={this.redirectToAddCoursePage}
+        />
+        <CourseList courses={courses}/>
+      </div>
     );
   }
 }
