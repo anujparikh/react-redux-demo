@@ -28,7 +28,7 @@ class CoursesPage extends Component {
   }
 
   redirectToAddCoursePage() {
-    Router.push('/course');
+    this.props.history.push('/course');
   }
 
   /**
@@ -57,7 +57,8 @@ class CoursesPage extends Component {
  */
 CoursesPage.propTypes = {
   actions: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.array.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 /**
