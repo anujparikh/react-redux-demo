@@ -3,6 +3,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/toastr/build/toastr.min.css';
 import App from './components/App';
 import configureStore from './store/configStore';
 import {Provider} from 'react-redux';
